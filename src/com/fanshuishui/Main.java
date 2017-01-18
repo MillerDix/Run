@@ -1,17 +1,11 @@
 package com.fanshuishui;
 
 import com.fanshuishui.server.Server;
-import com.fanshuishui.server.ServerThread;
-
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) {
-        Server server = Server.getInstance(8888);
+        Server server = Server.getInstance(8000);
         server.strat();
 //        try {
 //            //create server, set port

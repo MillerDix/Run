@@ -19,8 +19,17 @@ public class TaskThread extends Thread {
         tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task, boolean notify){
         tasks.add(task);
+        if(notify) {
+            synchronized (this) {
+                this.notify();
+            }
+        }
+    }
+
+    public void addTask(Task task){
+        addTask(task, false);
     }
 
     public void cancel(){
@@ -48,6 +57,14 @@ public class TaskThread extends Thread {
                 }else if(tasks.get(0).finish() == FINISH){
                     tasks.remove(0);
                     System.out.println();
+                }
+            } else if(tasks.size() == 0){
+                synchronized (this){
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

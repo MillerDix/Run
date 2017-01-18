@@ -50,13 +50,17 @@ public class SimplePool implements Pool {
     public void addTask(Task task) {
         boolean add = false;
         if (pool.size() < size) {
+
             TaskThread thread = new TaskThread();
             pool.add(thread);
+
+            thread.addTask(task);
             thread.start();
+
         } else {
             for (int i = 0; i < size; i++) {
                 if(pool.get(i).canAdd()){
-                    pool.get(i).addTask(task);
+                    pool.get(i).addTask(task, true);
                     add = true;
                     break;
                 }
