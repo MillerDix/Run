@@ -1,19 +1,18 @@
-///**
-// * Created by MillerD on 1/16/17.
-// */
-//import java.net.InetAddress;
-//import java.net.ServerSocket;
-//import java.net.Socket;
-//import java.io.BufferedReader;
-//import java.io.BufferedWriter;
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.io.InputStreamReader;
-//import java.io.OutputStream;
-//import java.io.PrintWriter;
-//
-//public class Server {
-//    public static void main(String[] args) {
+package com.fanshuishui;
+
+import com.fanshuishui.server.Server;
+import com.fanshuishui.server.ServerThread;
+
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.io.IOException;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Server server = Server.getInstance(8888);
+        server.strat();
 //        try {
 //            //create server, set port
 //            ServerSocket serverSocket = new ServerSocket(8888);
@@ -39,5 +38,5 @@
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-//    }
-//}
+    }
+}
