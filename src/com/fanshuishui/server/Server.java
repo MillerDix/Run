@@ -3,6 +3,7 @@ package com.fanshuishui.server;
 import com.fanshuishui.server.task.SimplePool;
 import com.fanshuishui.server.task.Task;
 import com.fanshuishui.server.task.TaskImp;
+import com.fanshuishui.server.task.TaskThread;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -18,7 +19,7 @@ public class Server {
 
     private static Server mainServerProxy;
     private ServerSocket mainServer;
-    private List<ServerThread> mainClients;
+    private List<TaskThread> mainClients;
 
     private SimplePool simplePool;
 
@@ -50,9 +51,11 @@ public class Server {
         while (true) {
             try {
                 Socket socket = mainServer.accept();
-                Task task  = simplePool.obtain();
-                ((TaskImp)task).setSocket(socket);
-                simplePool.addTask(task);
+                if(socket != null) {
+                    Task task = simplePool.obtain();
+                    ((TaskImp) task).setSocket(socket);
+                    simplePool.addTask(task);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
